@@ -42,4 +42,4 @@
  */
 	require CAKE . 'Config' . DS . 'routes.php';
     Router::mapResources('AnswerHistories');
-    Router::parseExtensions();
+    Router::parseExtensions("json");
