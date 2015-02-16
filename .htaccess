@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteBase         /app/LK_API/
+    #RewriteBase         /app/LK_API/
     RewriteRule    ^$    app/webroot/    [L]
     RewriteRule    (.*) app/webroot/$1    [L]
 </IfModule>
