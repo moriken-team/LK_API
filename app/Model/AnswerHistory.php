@@ -5,20 +5,51 @@ class AnswerHistory extends AppModel {
     public $name = "AnswerHistory";
     public $post_params = array();
     public $parameters = array("kentei_id", "problem_id", "user_id", "answer_flag", "answer_text");
-
-    public function parameterCheck($key, $request_params){
-        if(array_key_exists($key, $request_params)){
-            $this->post_params[$key] = $request_params[$key];
-        }elseif($key != "answer_text"){
-            throw new NotFoundException("未入力の項目があるか、入力内容が間違っています。",400);
-        }
-    }
-
-    public function makeParameter($request_params){
-        foreach($this->parameters as $parameter){
-            $this->parameterCheck($parameter, $request_params);
-        }
-        return $this->post_params;
-    }
+    public $validate = array(
+        "kentei_id" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "kentei_idを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいkentei_id(int)を設定してください"
+            )
+        ),
+        "problem_id" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "problem_idを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいproblem_id(int)を設定してください"
+            )
+        ),
+        "user_id" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "user_idを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいuser_id(int)を設定してください"
+            )
+        ),
+        "answer_flag" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "answer_flagを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいanswer_flag(int)を設定してください"
+            )
+        )
+    );
 
 }
