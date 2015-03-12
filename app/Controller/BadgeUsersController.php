@@ -48,18 +48,6 @@ class BadgeUsersController extends ApiController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
-			$this->BadgeUser->create();
-			if ($this->BadgeUser->save($this->request->data)) {
-				$this->Session->setFlash(__('The badge user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The badge user could not be saved. Please, try again.'));
-			}
-		}
-		$badges = $this->BadgeUser->Badge->find('list');
-		$users = $this->BadgeUser->User->find('list');
-		$this->set(compact('badges', 'users'));
 	}
 
 /**
