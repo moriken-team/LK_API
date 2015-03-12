@@ -1,11 +1,11 @@
 <?php
-App::uses('AppController', 'Controller');
+App::uses('ApiController', 'Controller');
 /**
  * BadgeUsers Controller
  *
  * @property BadgeUser $BadgeUser
  */
-class BadgeUsersController extends AppController {
+class BadgeUsersController extends ApiController {
 
 /**
  * index method
