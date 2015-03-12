@@ -16,19 +16,16 @@ class AnswerHistoriesController extends ApiController {
     }
 
     public function index() {
-        //if(isset($this->request->query()){
-        //    return $this->success(array("message" => ));
-        //}
         $this->AnswerHistory->set($this->request->query);
         unset($this->AnswerHistory->validate["problem_id"]["notEmpty"]);
         unset($this->AnswerHistory->validate["answer_flag"]["notEmpty"]);
         if($this->AnswerHistory->validates()){
             $findConditions = array(
-                                    "AnswerHistory.kentei_id" => $this->request->data["kentei_id"],
-                                    "AnswerHistory.user_id" => $this->request->data["user_id"]
+                                    "AnswerHistory.kentei_id" => $this->request->query["kentei_id"],
+                                    "AnswerHistory.user_id" => $this->request->query["user_id"]
                                    );
-            if(isset($this->request->data["answer_flag"])){
-                $findConditions = array("AnswerHistory.answer_flag" => $this->request->data["answer_flag"]);
+            if(isset($this->request->query["answer_flag"])){
+                $findConditions = array("AnswerHistory.answer_flag" => $this->request->query["answer_flag"]);
             }
             $findRespons = $this->AnswerHistory->find("all",array("conditions" => $findConditions));
             $findRespons += array("code" => 200, "message" => "リクエストに成功しました。");
