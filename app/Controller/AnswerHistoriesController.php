@@ -5,7 +5,7 @@ class AnswerHistoriesController extends ApiController {
     public $uses = array("AnswerHistory");
     public $layout = null;
 
-    public function create() {
+    public function add() {
         if($this->request->is("post")){
             $post_params["AnswerHistory"] = $this->request->data;
             if($this->AnswerHistory->save($post_params)){
