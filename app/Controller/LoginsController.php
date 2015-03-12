@@ -14,11 +14,12 @@ class LoginsController extends ApiController {
 	public function add() {
 		if ($this->request->is('post')) {
             $this->loadModel('User');
-			if ($this->User->find('first', $this->request->data)) {
+			if ($response = $this->User->find('first', $this->request->data)) {
                 return $this->success(
                     array(
                         'code' => 200, 
                         'message' => 'ログインに成功しました。',
+                        'response' => $response,
                     )
                 );
             } else {
