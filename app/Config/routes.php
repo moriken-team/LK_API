@@ -41,3 +41,7 @@
  * the built-in default routes.
  */
 	require CAKE . 'Config' . DS . 'routes.php';
+
+	Router::parseExtensions("json");
+	Router::mapResources('GetQuizChoices');
+		Router::mapResources('GetQuizAlls');
