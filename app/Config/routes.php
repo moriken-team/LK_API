@@ -21,7 +21,7 @@
  */
 
 // Setting Mapresources and Extension for API
-Router::mapResources(array('users', 'logins','Logins', 'answerHistories', 'BadgeUsers'));
+Router::mapResources(array('users', 'logins', 'answerHistories', 'badgeUsers'));
 Router::parseExtensions('json');
 
 /**

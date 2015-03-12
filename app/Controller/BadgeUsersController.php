@@ -33,11 +33,13 @@ class BadgeUsersController extends ApiController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->BadgeUser->exists($id)) {
-			throw new NotFoundException(__('Invalid badge user'));
-		}
-		$options = array('conditions' => array('BadgeUser.' . $this->BadgeUser->primaryKey => $id));
-		$this->set('badgeUser', $this->BadgeUser->find('first', $options));
+
+        return $this->success(
+            array(
+                'code' => 200,
+                'response' => 'OK',
+            )
+        );
 	}
 
 /**
