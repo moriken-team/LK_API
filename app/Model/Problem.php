@@ -42,18 +42,21 @@ class Problem extends AppModel {
         "wrong_answer1" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
+                "required" => true,
                 "message" => "wrong_answer1を設定してください"
             )
         ),
         "wrong_answer2" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
+                "required" => true,
                 "message" => "wrong_answer2を設定してください"
             )
         ),
         "wrong_answer3" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
+                "required" => true,
                 "message" => "wrong_answer3を設定してください"
             )
         ),
