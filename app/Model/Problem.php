@@ -25,6 +25,39 @@ class Problem extends AppModel {
                 "message" => "正しいuser_id(int)を設定してください"
             )
         ),
+        "type" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "typeを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいtype(int)を設定してください"
+            )
+        ),
+        "grade" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "gradeを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいgrade(int)を設定してください"
+            )
+        ),
+        "number" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "numberを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいnumber(int)を設定してください"
+            )
+        ),
         "sentence" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
@@ -67,6 +100,59 @@ class Problem extends AppModel {
                 "message" => "descriptionを設定してください"
             )
         ),
+        "other_answer" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "other_answerを設定してください"
+            )
+        ),
+        "image" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "imageを設定してください"
+            )
+        ),
+        "latitude" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "latitudeを設定してください"
+            ),
+            "decimal" => array(
+                "rule" => "decimal",
+                "message" => "正しいlatitude(float)を設定してください"
+            )
+        ),
+        "longitude" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "longitudeを設定してください"
+            ),
+            "decimal" => array(
+                "rule" => "decimal",
+                "message" => "正しいlongitude(float)を設定してください"
+            )
+        ),
+        "spot_id" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "spot_idを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいspot_id(int)を設定してください"
+            )
+        ),
+        "public_flag" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "public_flagを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいpublic_flag(int)を設定してください"
+            )
+        ),
         "category_id" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
@@ -81,48 +167,13 @@ class Problem extends AppModel {
         "subcategory_id" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
-                "required" => true,
                 "message" => "subcategory_idを設定してください"
             ),
             "Numeric" => array(
                 "rule" => "Numeric",
                 "message" => "正しいsubcategory_id(int)を設定してください"
             )
-        ),
-        "type" => array(
-            "notEmpty" => array(
-                "rule" => "notEmpty",
-                "required" => true,
-                "message" => "typeを設定してください"
-            ),
-            "Numeric" => array(
-                "rule" => "Numeric",
-                "message" => "正しいtype(int)を設定してください"
-            )
         )
-
-        //"employ" => array(
-        //    "notEmpty" => array(
-        //        "rule" => "notEmpty",
-        //        "required" => true,
-        //        "message" => "employを設定してください"
-        //    ),
-        //    "Numeric" => array(
-        //        "rule" => "Numeric",
-        //        "message" => "正しいemploy(int)を設定してください"
-        //    )
-        //),
-        //"grade" => array(
-        //    "notEmpty" => array(
-        //        "rule" => "notEmpty",
-        //        "required" => true,
-        //        "message" => "gradeを設定してください"
-        //    ),
-        //    "Numeric" => array(
-        //        "rule" => "Numeric",
-        //        "message" => "正しいgrade(int)を設定してください"
-        //    )
-        //),
         //"item" => array(
         //    "Numeric" => array(
         //        "rule" => "Numeric",
