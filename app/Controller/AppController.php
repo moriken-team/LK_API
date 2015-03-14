@@ -31,11 +31,20 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-    public $components = array('DebugKit.Toolbar', 'Session');
-    public $helpers = array(
-	'Session',
-	'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
-	'Form' => array('className' => 'TwitterBootstrap.BootstrapForm'),
-	'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
- )  ;
+    public $components = array(
+        'DebugKit.Toolbar', 
+        'Session', 
+        'Auth' => array(
+            'loginAction' => array(
+                'controller' => 'logins',
+                'action' => 'add',
+            ),
+            'authenticate' => array(
+                'Form' => array(
+                    //'passwordHasher' => 'Blowfish',
+                )
+            )
+        )
+    );
+    public $helpers = array('Session');
 }

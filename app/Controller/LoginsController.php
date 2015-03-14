@@ -6,24 +6,26 @@ App::uses('ApiController', 'Controller');
  */
 class LoginsController extends ApiController {
 
+    public function beforeFilter(){
+        parent::beforeFilter();
+        $this->Auth->allow('add');
+    }
 /**
  * add method
  *
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
-            $this->loadModel('User');
-			if ($this->User->find('first', $this->request->data)) {
-                return $this->success(
-                    array(
-                        'code' => 200, 
-                        'message' => 'ログインに成功しました。',
-                    )
-                );
-            } else {
-                return $this->error('ログインに失敗しました。ユーザ名（メールアドレス）かパスワードを確認して下さい。', 401);
-			}
-		}
-	}
+        if ($this->Auth->login()) {
+            return $this->success(
+                array(
+                    'code' => 200, 
+                    'message' => 'ログインに成功しました。',
+                    'response' => $this->Auth->user(),
+                )
+            );
+        } else {
+            return $this->error('ログインに失敗しました。ユーザ名（メールアドレス）かパスワードを確認して下さい。', 401);
+        }
+    }
 }

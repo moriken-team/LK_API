@@ -8,6 +8,11 @@ App::uses('ApiController', 'Controller');
  */
 class UsersController extends ApiController {
 
+    public function beforeFilter(){
+        parent::beforeFilter();
+        $this->Auth->allow('add');
+    }
+
 /**
  * index method
  *
@@ -37,20 +42,28 @@ class UsersController extends ApiController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
-			$this->User->create();
-			if ($this->User->save($this->request->data)) {
-                return $this->success(
-                    array(
-                        'code' => 201, 
-                        'message' => 'ユーザ登録に成功しました。',
-                        'token' => Security::generateAuthKey()
-                    )
-                );
-            } else {
-                return $this->validationError('User', $this->User->validationErrors);
-			}
-		}
+        $this->User->create();
+        $this->request->data['User']['token'] = Security::generateAuthKey();
+
+        if ($this->User->save($this->request->data)) {
+            $id = $this->User->id;
+            //$this->request->data['User'] = array_merge($this->request->data['User'], array('id' => $id));
+            //$this->Auth->login($this->request->data['User']);
+
+            $udata = $this->User->findById($id);
+            //$udata['User']['password'] = $this->request->data['User']['password'];
+            unset($udata['User']['password']);
+
+            return $this->success(
+                array(
+                    'code' => 201, 
+                    'message' => 'ユーザ登録に成功しました。',
+                    'response' => $udata['User'], 
+                )
+            );
+        } else {
+            return $this->validationError('User', $this->User->validationErrors);
+        }
 	}
 
 /**
