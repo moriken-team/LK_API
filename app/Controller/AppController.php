@@ -47,4 +47,18 @@ class AppController extends Controller {
         )
     );
     public $helpers = array('Session');
+    }
+
+    public $cToken; // TokenCheck用
+    public function beforeFilter(){
+        if(isset($this->data)){ // POST or GETされたとき（API叩いたとき）
+            foreach($this->data as $key => $value){
+                if ($key === 'token') // 一次元配列のとき
+                    $cToken = $this->User->checkToken($value);
+                else if(array_key_exists('token', $value)){ // 二次元配列のとき
+                    $cToken = $this->User->checkToken($value['token']);
+                } 
+            }     
+        }
+    }
 }
