@@ -86,38 +86,20 @@ class UsersController extends ApiController {
  * @return void
  */
 	public function edit($id = null) {
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid %s', __('user')));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(
-					__('The %s has been saved', __('user')),
-					'alert',
-					array(
-						'plugin' => 'TwitterBootstrap',
-						'class' => 'alert-success'
-					)
-				);
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(
-					__('The %s could not be saved. Please, try again.', __('user')),
-					'alert',
-					array(
-						'plugin' => 'TwitterBootstrap',
-						'class' => 'alert-error'
-					)
-				);
-			}
-		} else {
-			$this->request->data = $this->User->read(null, $id);
-		}
-		$twitters = $this->User->Twitter->find('list');
-		$facebooks = $this->User->Facebook->find('list');
-		$morikenAuths = $this->User->MorikenAuth->find('list');
-		$this->set(compact('twitters', 'facebooks', 'morikenAuths'));
+        $this->User->id = $id;
+        if ($this->User->save($this->request->data)){
+            $udata = $this->User->read(null, $id);
+            unset($udata['User']['password']);
+            return $this->success(
+                array(
+                    'code' => 200,
+                    'message' => $this->statusCode[200],
+                    'user' => $udata,
+                )
+            );
+        }else{
+            return $this->validationErrors('User', $this->User->validationErrors);
+        }
 	}
 
 /**
@@ -156,4 +138,23 @@ class UsersController extends ApiController {
 		$this->redirect(array('action' => 'index'));
 	}
 
+/**
+ * Confirm Email address(パスワード再発行処理用)
+ *
+ * この関数はWeb側で直接Actionを指定してもらって叩く。Restじゃ無理なので。
+ */
+    public function matchEmail(){
+        $user = $this->User->find('first', array('conditions' => $this->request->data));
+        if ($user){
+            return $this->success(
+                array(
+                    'code' => 200, 
+                    'message' => $this->statusCode[200],
+                    'user' => $user['User'],
+                )
+            );
+        }else{
+            return $this->error($this->statusCode[404], 404);
+        }
+    }
 }
