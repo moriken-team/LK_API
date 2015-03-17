@@ -24,7 +24,7 @@ class UsersController extends ApiController {
             array(
                 'code' => 200,
                 'message' => $this->statusCode[200],
-                'users' => $usdata,
+                'data' => $usdata,
             )
         );
 	}
@@ -41,7 +41,7 @@ class UsersController extends ApiController {
             array(
                 'code' => 200,
                 'message' => $this->statusCode[200],
-                'user' => $udata,
+                'data' => $udata,
             )
         );
 	}
@@ -71,7 +71,7 @@ class UsersController extends ApiController {
                 array(
                     'code' => 201, 
                     'message' => $this->statusCode[201],
-                    'user' => $loginUser,
+                    'data' => $loginUser,
                 )
             );
         } else {
@@ -94,7 +94,7 @@ class UsersController extends ApiController {
                 array(
                     'code' => 200,
                     'message' => $this->statusCode[200],
-                    'user' => $udata,
+                    'data' => $udata,
                 )
             );
         }else{
@@ -150,7 +150,7 @@ class UsersController extends ApiController {
                 array(
                     'code' => 200, 
                     'message' => $this->statusCode[200],
-                    'user' => $user['User'],
+                    'data' => $user['User'],
                 )
             );
         }else{

@@ -21,7 +21,7 @@ class LoginsController extends ApiController {
                 array(
                     'code' => 200, 
                     'message' => $this->statusCode[200],
-                    'user' => $this->Auth->user(),
+                    'data' => $this->Auth->user(),
                 )
             );
         } else {
