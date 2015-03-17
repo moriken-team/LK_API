@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
-//App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
+//App::uses('SimplePasswordHasher', 'Controller/Component/Auth'); // 従来用
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 /**
  * User Model
  *
@@ -20,8 +20,8 @@ class User extends AppModel {
  */
     public function beforeSave($options = array()){
         if (!$this->id) {
-            //$passwordHasher = new BlowfishPasswordHasher();
-            $passwordHasher = new SimplePasswordHasher();
+            $passwordHasher = new BlowfishPasswordHasher();
+            //$passwordHasher = new SimplePasswordHasher(); // 従来のパスワードハッシュ化関数
 
             $this->data['User']['password'] = $passwordHasher->hash($this->data['User']['password']);
         }
