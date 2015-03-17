@@ -45,4 +45,16 @@ class EvaluateCommentsController extends ApiController {
         }
         return $conditions;
     }
+
+    public function edit($id = null) {
+        //idは数字のみ受け付ける
+        $isIntNum = preg_match("/^[0-9]+$/",$id);
+        $this->EvaluateComment->set($this->request->data);
+        if($this->EvaluateComment->validates(array("fieldList" => array("confirm_comment","confirm_flag"))) && !empty($isIntNum)){
+            $this->EvaluateComment->id = $id;
+            $this->EvaluateComment->save($this->request->data, false);
+            return $this->success($this->request->data);
+        }
+        return $this->validationError("EvaluateComment", $this->EvaluateComment->validationErrors);
+    }
 }

@@ -42,6 +42,24 @@ class EvaluateComment extends AppModel {
                 "required" => true,
                 "message" => "evaluate_commentを設定してください"
             )
+        ),
+        "confirm_comment" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "confirm_commentを設定してください"
+            )
+        ),
+        "confirm_flag" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "confirm_flagを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいconfirm_flag(int)を設定してください"
+            )
         )
     );
 }
