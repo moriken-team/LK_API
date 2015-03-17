@@ -57,6 +57,11 @@ class UsersController extends ApiController {
 
         if ($this->User->save($this->request->data)) {
             $id = $this->User->id;
+            // levelsテーブルもSave
+            $levels['Level']['user_id'] = $id;
+            $this->User->Level->save($levels);
+
+            // response処理
             $udata = $this->User->findById($id);
             $this->Auth->login($udata['User']); // 手動でログイン
             $loginUser = $this->Auth->user(); // パスワードを返さないようにunset（$this->Auth->login()に直接unsetするとエラーになったため
