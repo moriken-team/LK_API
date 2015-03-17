@@ -47,18 +47,16 @@ class UsersController extends ApiController {
 
         if ($this->User->save($this->request->data)) {
             $id = $this->User->id;
-            //$this->request->data['User'] = array_merge($this->request->data['User'], array('id' => $id));
-            //$this->Auth->login($this->request->data['User']);
-
             $udata = $this->User->findById($id);
-            //$udata['User']['password'] = $this->request->data['User']['password'];
-            unset($udata['User']['password']);
+            $this->Auth->login($udata['User']); // 手動でログイン
+            $loginUser = $this->Auth->user(); // パスワードを返さないようにunset（$this->Auth->login()に直接unsetするとエラーになったため
+            unset($loginUser['password']);
 
             return $this->success(
                 array(
                     'code' => 201, 
                     'message' => 'ユーザ登録に成功しました。',
-                    'response' => $udata['User'], 
+                    'response' => $loginUser,
                 )
             );
         } else {

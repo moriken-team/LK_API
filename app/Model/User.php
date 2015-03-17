@@ -36,7 +36,7 @@ class User extends AppModel {
      */
     public function checkToken($token){
         if ($this->find('first', array('conditions' => array('token' => $token)))){
-            return true
+            return true;
         }else{
             return false;
         }

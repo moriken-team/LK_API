@@ -47,7 +47,6 @@ class AppController extends Controller {
         )
     );
     public $helpers = array('Session');
-    }
 
     public $cToken; // TokenCheck用
     public function beforeFilter(){
