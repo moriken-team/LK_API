@@ -35,7 +35,7 @@ class UsersController extends ApiController {
                 'code' => 200,
                 'message' => $this->statusCode[200],
             )
-        )
+        );
 	}
 
 /**

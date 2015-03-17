@@ -58,7 +58,7 @@ class AppController extends Controller {
         409 => 'Conflict: 重複しています。',
         500 => 'InternalServerError: サーバエラーです。',
         503 => 'ServiceUnavailable: メンテナンス中か、サーバがダウンしています。',
-    )
+    );
 
     public $cToken; // TokenCheck用
     public function beforeFilter(){
