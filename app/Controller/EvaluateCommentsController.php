@@ -6,6 +6,8 @@ class EvaluateCommentsController extends ApiController {
     public $layout = null;
 
     public function add() {
+        unset($this->EvaluateComment->validate["confirm_comment"]["notEmpty"]);
+        unset($this->EvaluateComment->validate["confirm_flag"]["notEmpty"]);
         $postParams["EvaluateComment"] = $this->request->data;
         if($this->EvaluateComment->save($postParams)){
             $postParams += array("code" => 201, "message" => "作成に成功しました。");
@@ -19,7 +21,11 @@ class EvaluateCommentsController extends ApiController {
         $this->deleteValidFields($this->request->query);
         if($this->EvaluateComment->validates()){
             $conditions = $this->createConditions($this->request->query);
-            $comments = $this->EvaluateComment->find("all",array("conditions" => $conditions));
+            $findComments = $this->EvaluateComment->find("all",array("conditions" => $conditions));
+            $comments["EvaluateComments"] = array();
+            for($i = 0;$i < count($findComments);$i++){
+                $comments["EvaluateComments"][$i] = $findComments[$i];
+            }
             $comments += array("code" => 200, "message" => "リクエストに成功しました。");;
             return $this->success($comments);
         }
@@ -30,6 +36,8 @@ class EvaluateCommentsController extends ApiController {
         //APIの仕様に準ずる(APIドキュメント参照)
         unset($this->EvaluateComment->validate["evaluate_item_id"]["notEmpty"]);
         unset($this->EvaluateComment->validate["evaluate_comment"]["notEmpty"]);
+        unset($this->EvaluateComment->validate["confirm_comment"]["notEmpty"]);
+        unset($this->EvaluateComment->validate["confirm_flag"]["notEmpty"]);
         if(isset($querys["problem_id"])){
             unset($this->EvaluateComment->validate["user_id"]["notEmpty"]["required"]);
         }
