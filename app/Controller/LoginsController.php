@@ -21,7 +21,7 @@ class LoginsController extends ApiController {
                 array(
                     'code' => 200, 
                     'message' => 'ログインに成功しました。',
-                    'response' => $this->Auth->user(),
+                    'user' => $this->Auth->user(),
                 )
             );
         } else {

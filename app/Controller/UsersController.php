@@ -56,7 +56,7 @@ class UsersController extends ApiController {
                 array(
                     'code' => 201, 
                     'message' => 'ユーザ登録に成功しました。',
-                    'response' => $loginUser,
+                    'user' => $loginUser,
                 )
             );
         } else {
