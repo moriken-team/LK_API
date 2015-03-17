@@ -20,7 +20,7 @@ class LoginsController extends ApiController {
             return $this->success(
                 array(
                     'code' => 200, 
-                    'message' => 'ログインに成功しました。',
+                    'message' => $this->statusCode[200],
                     'user' => $this->Auth->user(),
                 )
             );

@@ -29,11 +29,13 @@ class UsersController extends ApiController {
  * @return void
  */
 	public function view($id = null) {
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid %s', __('user')));
-		}
-		$this->set('user', $this->User->read(null, $id));
+        $udata = $this->User->findById($id);
+        return $this->success(
+            array(
+                'code' => 200,
+                'message' => $this->statusCode[200],
+            )
+        )
 	}
 
 /**
@@ -55,7 +57,7 @@ class UsersController extends ApiController {
             return $this->success(
                 array(
                     'code' => 201, 
-                    'message' => 'ユーザ登録に成功しました。',
+                    'message' => $this->statusCode[201],
                     'user' => $loginUser,
                 )
             );
