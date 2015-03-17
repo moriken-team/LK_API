@@ -61,6 +61,7 @@ class EvaluateCommentsController extends ApiController {
         if($this->EvaluateComment->validates(array("fieldList" => array("confirm_comment","confirm_flag"))) && !empty($isIntNum)){
             $this->EvaluateComment->id = $id;
             $this->EvaluateComment->save($this->request->data, false);
+            $this->request->data += array("code" => 201, "message" => "作成に成功しました。");
             return $this->success($this->request->data);
         }
         return $this->validationError("EvaluateComment", $this->EvaluateComment->validationErrors);
