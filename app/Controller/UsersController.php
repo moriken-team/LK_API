@@ -10,7 +10,7 @@ class UsersController extends ApiController {
 
     public function beforeFilter(){
         parent::beforeFilter();
-        $this->Auth->allow('add');
+        $this->Auth->allow();
     }
 
 /**
@@ -19,7 +19,14 @@ class UsersController extends ApiController {
  * @return void
  */
 	public function index() {
-
+        $usdata = $this->User->find('all', array('conditions' => array($this->request->query)));
+        return $this->success(
+            array(
+                'code' => 200,
+                'message' => $this->statusCode[200],
+                'users' => $usdata,
+            )
+        );
 	}
 
 /**
@@ -34,6 +41,7 @@ class UsersController extends ApiController {
             array(
                 'code' => 200,
                 'message' => $this->statusCode[200],
+                'user' => $udata,
             )
         );
 	}
