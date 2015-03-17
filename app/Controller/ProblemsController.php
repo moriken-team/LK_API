@@ -49,17 +49,27 @@ class ProblemsController extends ApiController {
         //オリジナル問題は作成日,過去問は設問番号の昇順で取得(APIドキュメント参照)
         $orderField = $querys["employ"] == OriginalQuestions ? "created" : "number";
         $orderItem = array("Problem.".$orderField => "asc");
-        return $this->Problem->find("all", array("conditions" => $conditions, "order" => $orderItem));
+        $findProblems = $this->Problem->find("all", array("conditions" => $conditions, "order" => $orderItem));
+        //findされた問題を整理
+        $problems["Problems"] = array();
+        for($i = 0;$i < count($findProblems);$i++){
+            $problems["Problems"][$i] = $findProblems[$i];
+        }
+        return $problems;
     }
 
     public function createRandomProblems($querys, $conditions) {
-        $problems = array();
+        $findProblems = array();
         $findTargetIds = $this->Problem->find("list",array("conditions" => $conditions));
         for($i = 0;$i < $querys["item"] && !empty($findTargetIds);$i++){
             $randInt = array_rand($findTargetIds);
             $randomConditions = array("Problem.id" => $randInt);
-            $problems[] = $this->Problem->find("all", array("conditions" => $randomConditions));
+            $findProblems[] = $this->Problem->find("all", array("conditions" => $randomConditions));
             unset($findTargetIds[$randInt]);
+        }
+        $problems = array();
+        for($i = 0;$i < count($findProblems);$i++){
+            $problems["Problems"][$i] = $findProblems[$i][0];
         }
         return $problems;
     }
