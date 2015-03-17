@@ -19,7 +19,11 @@ class EvaluateCommentsController extends ApiController {
         $this->deleteValidFields($this->request->query);
         if($this->EvaluateComment->validates()){
             $conditions = $this->createConditions($this->request->query);
-            $comments = $this->EvaluateComment->find("all",array("conditions" => $conditions));
+            $findComments = $this->EvaluateComment->find("all",array("conditions" => $conditions));
+            $comments["EvaluateComments"] = array();
+            for($i = 0;$i < count($findComments);$i++){
+                $comments["EvaluateComments"][$i] = $findComments[$i];
+            }
             $comments += array("code" => 200, "message" => "リクエストに成功しました。");;
             return $this->success($comments);
         }
