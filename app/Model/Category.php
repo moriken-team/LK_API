@@ -2,6 +2,7 @@
 App::uses("AppModel","Model");
 class Category extends AppModel {
     public $name = "Category";
+    public $hasMany = "Subcategory";
     public $validate = array(
         "kentei_id" => array(
             "notEmpty" => array(
