@@ -2,6 +2,7 @@
 App::uses("AppModel", "Model");
 class Problem extends AppModel {
     public $name = "Problem";
+    public $belongsTo = "Category";
     public $validate = array(
         "kentei_id" => array(
             "notEmpty" => array(
@@ -173,12 +174,17 @@ class Problem extends AppModel {
                 "rule" => "Numeric",
                 "message" => "正しいsubcategory_id(int)を設定してください"
             )
+        ),
+        "item" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "itemを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいitem(int)を設定してください"
+            )
         )
-        //"item" => array(
-        //    "Numeric" => array(
-        //        "rule" => "Numeric",
-        //        "message" => "正しいitem(int)を設定してください"
-        //    )
-        //)
     );
 }
