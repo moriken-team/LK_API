@@ -2,6 +2,13 @@
 App::uses("AppModel","Model");
 class Comment extends AppModel {
     public $name = "Comment";
+    public $belongsTo = array(
+        "User" => array(
+            "className" => "User",
+            "foreignKey" => "from_user_id",
+            "fields" => array("id","username","image")
+        )
+    );
     public $validate = array(
         "target" => array(
             "notEmpty" => array(
