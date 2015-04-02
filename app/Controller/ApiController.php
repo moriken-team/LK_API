@@ -57,7 +57,7 @@ class ApiController extends AppController {
     // バリデーションエラー系処理
     protected function validationError($modelName, $validationError = array()) {
         $this->result['error']['message'] = 'Validation Error';
-        $this->result['error']['code'] = '400';
+        $this->result['error']['code'] = 400;
         $this->result['error']['validation'][$modelName] = array();
         foreach($validationError as $key => $value){
             $this->result['error']['validation'][$modelName][$key] = $value[0];
