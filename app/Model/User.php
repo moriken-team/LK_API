@@ -1,5 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
+//App::uses('SimplePasswordHasher', 'Controller/Component/Auth'); // 従来用
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 /**
  * User Model
  *
@@ -12,6 +14,33 @@ App::uses('AppModel', 'Model');
  * @property Problem $Problem
  */
 class User extends AppModel {
+
+/**
+ * before save method
+ */
+    public function beforeSave($options = array()){
+        if (!$this->id) {
+            $passwordHasher = new BlowfishPasswordHasher();
+            //$passwordHasher = new SimplePasswordHasher(); // 従来のパスワードハッシュ化関数
+
+            $this->data['User']['password'] = $passwordHasher->hash($this->data['User']['password']);
+        }
+        return true;
+    }
+
+    /**
+     * Check token method
+     *
+     * @param $token token key
+     * @return boolean
+     */
+    public function checkToken($token){
+        if ($this->find('first', array('conditions' => array('token' => $token)))){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 /**
  * Validation rules
@@ -32,16 +61,6 @@ class User extends AppModel {
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'moriken_auth_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -73,13 +92,6 @@ class User extends AppModel {
 //			'fields' => '',
 //			'order' => ''
 //		),
-//		'MorikenAuth' => array(
-//			'className' => 'MorikenAuth',
-//			'foreignKey' => 'moriken_auth_id',
-//			'conditions' => '',
-//			'fields' => '',
-//			'order' => ''
-//		)
 //	);
 
 /**
