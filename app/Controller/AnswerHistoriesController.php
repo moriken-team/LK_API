@@ -27,9 +27,13 @@ class AnswerHistoriesController extends ApiController {
             if(isset($this->request->query["answer_flag"])){
                 $findConditions = array("AnswerHistory.answer_flag" => $this->request->query["answer_flag"]);
             }
-            $findRespons = $this->AnswerHistory->find("all",array("conditions" => $findConditions));
-            $findRespons += array("code" => 200, "message" => "リクエストに成功しました。");
-            return $this->success($findRespons);
+            $findHistories = $this->AnswerHistory->find("all",array("conditions" => $findConditions));
+            $histories["AnswerHistories"] = array();
+            for($i = 0;$i < count($findHistories);$i++){
+                $histories["AnswerHistories"][$i] = $findHistories[$i];
+            }
+            $histories += array("code" => 200, "message" => "リクエストに成功しました。");
+            return $this->success($histories);
         }else{
             return $this->validationError("AnswerHistory", $this->AnswerHistory->validationErrors);
         }
