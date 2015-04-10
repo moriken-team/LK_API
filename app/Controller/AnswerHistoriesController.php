@@ -33,8 +33,7 @@ class AnswerHistoriesController extends ApiController {
             }
             $histories += array("code" => 200, "message" => "リクエストに成功しました。");
             return $this->success($histories);
-        }else{
-            return $this->validationError("AnswerHistory", $this->AnswerHistory->validationErrors);
         }
+        return $this->validationError("AnswerHistory", $this->AnswerHistory->validationErrors);
     }
 }
