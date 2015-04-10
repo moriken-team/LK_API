@@ -10,9 +10,8 @@ class AnswerHistoriesController extends ApiController {
         if($this->AnswerHistory->save($post_params)){
             $post_params += array("code" => 201, "message" => "作成に成功しました。");
             return $this->success($post_params);
-        }else{
-            return $this->validationError("AnswerHistory", $this->AnswerHistory->validationErrors);
         }
+        return $this->validationError("AnswerHistory", $this->AnswerHistory->validationErrors);
     }
 
     public function index() {
