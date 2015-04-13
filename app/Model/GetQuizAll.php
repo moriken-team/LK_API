@@ -3,19 +3,26 @@
 class GetQuizAll extends AppModel {
     public $name = "GetQuizAll";
 
-    public $parameters = array("problem_id", "employ", "grade", "number", "type", "category_name", "subcategory_name", "sentence", "right_answer", "wrong_answer1", "wrong_answer2", "wrong_answer3", "description");
+    public $parameters_problem = array("id", "kentei_id", "user_id", "type", "grade", "number", "sentence", "right_answer", "wrong_answer1", "wrong_answer2", "wrong_answer3", "description", "other_answer", "image", "latitude", "longitude", "reference", "spot_id", "public_flag", "category_id", "subcategory_id", "employ", "created", "modified");
+
+    public $parameters_category = array("id", "kentei_id", "name", "created");
 
     public $result = array();
 
     public function Parameter($response){
 
-        foreach($this->parameters as $parameter){
-            for ($i=0; $i<100; $i++) {
-                $this->result[$i][$parameter] = "deta";
+        for ($i=0; $i<100; $i++) {
+            foreach($this->parameters_problem as $parameter_problem){
+                $this->result[$i]["Problem"][$parameter_problem] = "deta";
+             }   
+
+            foreach($this->parameters_category as $parameter_category){
+                $this->result[$i]["Category"][$parameter_category] = "deta";
             }
         }
 
         return $this->result;
+
     }
 
 

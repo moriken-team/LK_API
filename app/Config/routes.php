@@ -44,4 +44,6 @@
 
 	Router::parseExtensions("json");
 	Router::mapResources('GetQuizChoices');
-		Router::mapResources('GetQuizAlls');
+	Router::mapResources('GetQuizAlls');
+	Router::mapResources('CreateQuizs');
+	Router::mapResources('Levels');
