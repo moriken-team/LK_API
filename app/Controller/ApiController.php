@@ -15,7 +15,7 @@ class ApiController extends AppController {
 
     public function beforeFilter(){
         parent::beforeFilter();
-
+        $this->Auth->allow();
         // XSS対策でAjax以外のアクセス禁止
         //if (!$this->request->is('ajax')) throw new BadRequestException('Ajax以外でのアクセスは許可していません。');
 
