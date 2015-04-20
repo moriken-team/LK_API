@@ -28,12 +28,14 @@ class ProblemsController extends ApiController {
     public function getValidFields($querys) {
         //APIの仕様に準ずる(APIドキュメント参照)
         if(isset($querys["employ"]) && $querys["employ"] == OriginalQuestions){
-            return array("kentei_id","employ","category_id","item");
+            return array("kentei_id","employ","category_id","item","public_flag");
         }
+        //過去問はpublic_flagを必須ではなくす
+        unset($this->Problem->validate["public_flag"]["notEmpty"]);
         if(isset($querys["category_id"])){
-            return array("kentei_id","employ","category_id","item");
+            return array("kentei_id","employ","category_id","item","public_flag");
         }
-        return array("kentei_id","employ","grade","item");
+        return array("kentei_id","employ","grade","item","public_flag");
     }
 
     public function createConditions($querys) {
@@ -99,5 +101,21 @@ class ProblemsController extends ApiController {
             unset($this->Problem->validate["grade"]["notEmpty"]);
             unset($this->Problem->validate["number"]["notEmpty"]);
         }
+    }
+
+    public function edit($id = null) {
+        $this->Problem->set($this->request->data);
+        unset($this->Problem->validate['public_flag']['notEmpty']);
+        $validateFields = array('public_flag','latitude', 'longitude');
+        if(is_numeric($id) && $this->Problem->validates(array("fieldList" => $validateFields))){
+            $this->Problem->id = $id;
+            $this->Problem->save($this->request->data, false);
+            foreach($this->request->data as $key => $postData){
+                $postParams["Problem"][$key] = $postData;
+            }
+            $postParams += array("code" => 201, "message" => "作成に成功しました。");
+            return $this->success($postParams);
+        }
+        return $this->validationError("Problem", $this->Problem->validationErrors);
     }
 }
