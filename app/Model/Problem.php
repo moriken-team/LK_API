@@ -102,43 +102,19 @@ class Problem extends AppModel {
                 "message" => "descriptionを設定してください"
             )
         ),
-        "other_answer" => array(
-            "notEmpty" => array(
-                "rule" => "notEmpty",
-                "message" => "other_answerを設定してください"
-            )
-        ),
-        "image" => array(
-            "notEmpty" => array(
-                "rule" => "notEmpty",
-                "message" => "imageを設定してください"
-            )
-        ),
         "latitude" => array(
-            "notEmpty" => array(
-                "rule" => "notEmpty",
-                "message" => "latitudeを設定してください"
-            ),
             "decimal" => array(
                 "rule" => "decimal",
                 "message" => "正しいlatitude(float)を設定してください"
             )
         ),
         "longitude" => array(
-            "notEmpty" => array(
-                "rule" => "notEmpty",
-                "message" => "longitudeを設定してください"
-            ),
             "decimal" => array(
                 "rule" => "decimal",
                 "message" => "正しいlongitude(float)を設定してください"
             )
         ),
         "spot_id" => array(
-            "notEmpty" => array(
-                "rule" => "notEmpty",
-                "message" => "spot_idを設定してください"
-            ),
             "Numeric" => array(
                 "rule" => "Numeric",
                 "message" => "正しいspot_id(int)を設定してください"
