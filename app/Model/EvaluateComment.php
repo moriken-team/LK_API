@@ -2,6 +2,7 @@
 App::uses("AppModel", "Model");
 class EvaluateComment extends AppModel {
     public $name = "EvaluateComment";
+    public $belongsTo = "Problem";
     public $validate = array(
         "evaluate_item_id" => array(
             "notEmpty" => array(
