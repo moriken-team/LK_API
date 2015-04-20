@@ -102,4 +102,20 @@ class ProblemsController extends ApiController {
             unset($this->Problem->validate["number"]["notEmpty"]);
         }
     }
+
+    public function edit($id = null) {
+        $this->Problem->set($this->request->data);
+        unset($this->Problem->validate['public_flag']['notEmpty']);
+        $validateFields = array('public_flag','latitude', 'longitude');
+        if(is_numeric($id) && $this->Problem->validates(array("fieldList" => $validateFields))){
+            $this->Problem->id = $id;
+            $this->Problem->save($this->request->data, false);
+            foreach($this->request->data as $key => $postData){
+                $postParams["Problem"][$key] = $postData;
+            }
+            $postParams += array("code" => 201, "message" => "作成に成功しました。");
+            return $this->success($postParams);
+        }
+        return $this->validationError("Problem", $this->Problem->validationErrors);
+    }
 }
