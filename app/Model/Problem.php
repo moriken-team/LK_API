@@ -3,6 +3,7 @@ App::uses("AppModel", "Model");
 class Problem extends AppModel {
     public $name = "Problem";
     public $belongsTo = "Category";
+    public $hasMany = "EvaluateComment";
     public $validate = array(
         "kentei_id" => array(
             "notEmpty" => array(
