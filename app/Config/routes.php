@@ -21,7 +21,7 @@
  */
 
 // Setting Mapresources and Extension for API
-Router::mapResources(array('users', 'logins','AnswerHistories', 'Problems', 'EvaluateComments', 'Categories', 'Subcategories', 'Comments', 'Tags', 'EvaluateItems'));
+Router::mapResources(array('users', 'logins','AnswerHistories', 'Problems', 'EvaluateComments', 'Categories', 'Subcategories', 'Comments', 'Tags', 'EvaluateItems', 'Levels'));
 Router::parseExtensions('json');
 
 /**
@@ -47,8 +47,8 @@ Router::parseExtensions('json');
  */
 	require CAKE . 'Config' . DS . 'routes.php';
 
-	Router::parseExtensions("json");
-	Router::mapResources('GetQuizChoices');
-	Router::mapResources('GetQuizAlls');
-	Router::mapResources('CreateQuizs');
-	Router::mapResources('Levels');
+//	Router::parseExtensions("json");
+//, //	Router::mapResources('GetQuizChoices');
+//, //	Router::mapResources('GetQuizAlls');
+//, //	Router::mapResources('CreateQuizs');
+//, //	Router::mapResources('Levels');

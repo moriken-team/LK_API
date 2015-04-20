@@ -1,20 +1,18 @@
 <?php
-// App::uses('AppModel', 'Model');
+App::uses("AppModel","Model");
 class Level extends AppModel {
     public $name = "Level";
-
-    public $parameters = array("id", "user_id", "use_level", "know_level", "use_point", "login_point", "answer_point", "make_point", "evaluate_point");
-
-    public $result = array();
-
-    public function Parameter($response){
-
-        foreach($this->parameters as $parameter){
-        	$this->result[$parameter] = "deta";
-        }
-
-        return $this->result;
-    }
-
-
+    public $validate = array(
+        "user_id" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "required" => true,
+                "message" => "user_idを設定してください"
+            ),
+            "Numeric" => array(
+                "rule" => "Numeric",
+                "message" => "正しいuser_id(int)を設定してください"
+            )
+        )
+    );
 }

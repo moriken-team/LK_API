@@ -35,15 +35,15 @@ class AppController extends Controller {
         'DebugKit.Toolbar', 
         'Session', 
         'Auth' => array(
-            'loginAction' => array(
-                'controller' => 'logins',
-                'action' => 'add',
-            ),
-            'authenticate' => array(
-                'Form' => array(
-                    'passwordHasher' => 'Blowfish',
-                )
-            )
+           'loginAction' => array(
+               'controller' => 'logins',
+               'action' => 'add',
+           ),
+           'authenticate' => array(
+               'Form' => array(
+                   'passwordHasher' => 'Blowfish',
+               )
+           )
         )
     );
     public $helpers = array('Session');
