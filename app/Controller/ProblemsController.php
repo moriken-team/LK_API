@@ -28,12 +28,14 @@ class ProblemsController extends ApiController {
     public function getValidFields($querys) {
         //APIの仕様に準ずる(APIドキュメント参照)
         if(isset($querys["employ"]) && $querys["employ"] == OriginalQuestions){
-            return array("kentei_id","employ","category_id","item");
+            return array("kentei_id","employ","category_id","item","public_flag");
         }
+        //過去問はpublic_flagを必須ではなくす
+        unset($this->Problem->validate["public_flag"]["notEmpty"]);
         if(isset($querys["category_id"])){
-            return array("kentei_id","employ","category_id","item");
+            return array("kentei_id","employ","category_id","item","public_flag");
         }
-        return array("kentei_id","employ","grade","item");
+        return array("kentei_id","employ","grade","item","public_flag");
     }
 
     public function createConditions($querys) {
