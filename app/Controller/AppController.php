@@ -34,17 +34,17 @@ class AppController extends Controller {
     public $components = array(
         'DebugKit.Toolbar', 
         'Session', 
-        'Auth' => array(
-            'loginAction' => array(
-                'controller' => 'logins',
-                'action' => 'add',
-            ),
-            'authenticate' => array(
-                'Form' => array(
-                    'passwordHasher' => 'Blowfish',
-                )
-            )
-        )
+        // 'Auth' => array(
+        //    'loginAction' => array(
+        //        'controller' => 'logins',
+        //        'action' => 'add',
+        //    ),
+        //    'authenticate' => array(
+        //        'Form' => array(
+        //            'passwordHasher' => 'Blowfish',
+        //        )
+        //    )
+        // )
     );
     public $helpers = array('Session');
 
