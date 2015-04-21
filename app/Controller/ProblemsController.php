@@ -91,6 +91,7 @@ class ProblemsController extends ApiController {
     }
 
     public function unsetValidItem($type, $public_flag) {
+        unset($this->Problem->validate["item"]);
         if($type == QuestionsAndAnswersForm){
             unset($this->Problem->validate["wrong_answer1"]["notEmpty"]);
             unset($this->Problem->validate["wrong_answer2"]["notEmpty"]);
