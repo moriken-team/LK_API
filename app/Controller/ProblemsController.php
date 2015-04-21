@@ -28,6 +28,7 @@ class ProblemsController extends ApiController {
     public function getValidFields($querys) {
         //APIの仕様に準ずる(APIドキュメント参照)
         if(isset($querys["employ"]) && $querys["employ"] == OriginalQuestions){
+            unset($this->Problem->validate["category_id"]["notEmpty"]);
             return array("kentei_id","employ","category_id","item","public_flag");
         }
         //過去問はpublic_flagを必須ではなくす
@@ -91,6 +92,7 @@ class ProblemsController extends ApiController {
     }
 
     public function unsetValidItem($type, $public_flag) {
+        unset($this->Problem->validate["item"]);
         if($type == QuestionsAndAnswersForm){
             unset($this->Problem->validate["wrong_answer1"]["notEmpty"]);
             unset($this->Problem->validate["wrong_answer2"]["notEmpty"]);
