@@ -11,16 +11,17 @@ class LevelsController extends ApiController {
             $conditions = $this->createConditions($this->request->query);
             $findItems = $this->Level->find("all",array("conditions" => $conditions));
             $items = array();
+
             for($i = 0;$i < count($findItems);$i++){
                 $items = $findItems[$i];
             }
-            $items += array("code" => 200, "message" => "リクエストに成功しました。");
+            $items = array("code" => 200, "message" => "リクエストに成功しました。") + $items;
             return $this->success($items);
         }
         return $this->validationError("Level",$this->Level->validationErrors);
     }
 
-     public function createConditions($querys) {
+    public function createConditions($querys) {
         $conditions = array();
         foreach($querys as $key => $query){
           $conditions[] = array("Level.".$key => $query);
@@ -32,13 +33,13 @@ class LevelsController extends ApiController {
         //idは数字のみ受け付ける
         $isIntNum = preg_match("/^[0-9]+$/",$id);
         $this->Level->set($this->request->data);
-        if($this->Level->validates(array("fieldList" => array("user_id"))) && !empty($isIntNum)){
+        $items["Level"] = $this->request->data;
+        if($this->Level->validates() && !empty($isIntNum)){
             $this->Level->id = $id;
             $this->Level->save($this->request->data, false);
-            $this->request->data = array("code" => 201, "message" => "作成に成功しました。") + $this->request->data;
+            $this->request->data = array("code" => 201, "message" => "作成に成功しました。") + $items;
             return $this->success($this->request->data);
         }
         return $this->validationError("Level", $this->Level->validationErrors);
     }
-
 }
