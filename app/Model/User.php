@@ -48,6 +48,17 @@ class User extends AppModel {
  * @var array
  */
 	public $validate = array(
+        'id' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'required' => true,
+                'message' => 'idを設定してください'
+            ),
+            'Numeric' => array(
+                'rule' => 'Numeric',
+                'message' => '正しいidを設定してください'
+            )
+        ),
 		'username' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
