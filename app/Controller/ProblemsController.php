@@ -26,14 +26,15 @@ class ProblemsController extends ApiController {
     }
 
     public function getValidFields($querys) {
+        //user_idは任意項目とする
+        unset($this->Problem->validate["user_id"]["notEmpty"]);
         //APIの仕様に準ずる(APIドキュメント参照)
         if(isset($querys["employ"]) && $querys["employ"] == OriginalQuestions){
             unset($this->Problem->validate["category_id"]["notEmpty"]);
             return array("kentei_id","user_id","employ","category_id","item","public_flag");
         }
-        //過去問はuser_idとpublic_flagを必須ではなくす
+        //過去問はpublic_flagを任意項目にする
         unset($this->Problem->validate["public_flag"]["notEmpty"]);
-        unset($this->Problem->validate["user_id"]["notEmpty"]);
         if(isset($querys["category_id"])){
             return array("kentei_id","user_id","employ","category_id","item","public_flag");
         }
