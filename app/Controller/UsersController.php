@@ -19,15 +19,41 @@ class UsersController extends ApiController {
  * @return void
  */
 	public function index() {
-        $usdata = $this->User->find('all', array('conditions' => array($this->request->query)));
-        return $this->success(
-            array(
-                'code' => 200,
-                'message' => $this->statusCode[200],
-                'data' => $usdata,
-            )
-        );
+        $this->User->set($this->request->query);
+        if($this->User->validates(array("fieldList" => array('id')))){
+            $conditions = $this->createConditions($this->request->query);
+            $findUsers = $this->User->find('all', array('conditions' => $conditions));
+            //findされた問題を整理
+            $users["Users"] = array();
+            for($i = 0;$i < count($findUsers);$i++){
+                //パスワードはレスポンスに含めないのでunset
+                if(isset($findUsers[$i]["User"]["password"])){
+                    unset($findUsers[$i]["User"]["password"]);
+                }
+                $users["Users"][$i] = $findUsers[$i];
+            }
+            $users += array('code' => 200, 'message' => 'リクエストに成功しました。');
+            //return $this->success($users);
+            return $this->success($findUsers);
+        }
+        return $this->validationError("User", $this->User->validationErrors);
+        //$usdata = $this->User->find('all', array('conditions' => array($this->request->query)));
+        //return $this->success(
+        //    array(
+        //        'code' => 200,
+        //        'message' => $this->statusCode[200],
+        //        'data' => $usdata,
+        //    )
+        //);
 	}
+
+    public function createConditions($querys) {
+        $conditions = array();
+        foreach($querys as $key => $query){
+            $conditions[] = array("User.".$key => $query);
+        }
+        return $conditions;
+    }
 
 /**
  * view method
