@@ -28,6 +28,13 @@ class ProblemsController extends ApiController {
     public function getValidFields($querys) {
         //user_idは任意項目とする
         unset($this->Problem->validate["user_id"]["notEmpty"]);
+        //カテゴリーID,級,年度がない場合は、ランダム取得(APIドキュメント参照)
+        if(!isset($query["employ"]) && !isset($query["category_id"]) && !isset($query["grade"])){
+            unset($this->Problem->validate["employ"]["notEmpty"]);
+            unset($this->Problem->validate["category_id"]["notEmpty"]);
+            unset($this->Problem->validate["grade"]["notEmpty"]);
+            return array("kentei_id","user_id","employ","category_id","item","public_flag");
+        }
         //APIの仕様に準ずる(APIドキュメント参照)
         if(isset($querys["employ"]) && $querys["employ"] == OriginalQuestions){
             unset($this->Problem->validate["category_id"]["notEmpty"]);
