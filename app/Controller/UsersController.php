@@ -79,8 +79,11 @@ class UsersController extends ApiController {
  */
 	public function add() {
         $this->User->create();
-        $this->request->data['User']['token'] = Security::generateAuthKey();
+        //$this->request->data['User']['token'] = Security::generateAuthKey();
+        $post_params["User"] = $this->request->data;
+        $post_params["User"]['token'] = Security::generateAuthKey();
 
+        unset($this->User->validate['id']['notEmpty']);
         if ($this->User->save($this->request->data)) {
             $id = $this->User->id;
             // levelsテーブルもSave
@@ -97,7 +100,7 @@ class UsersController extends ApiController {
                 array(
                     'code' => 201, 
                     'message' => $this->statusCode[201],
-                    'data' => $loginUser,
+                    'Users' => $loginUser,
                 )
             );
         } else {
